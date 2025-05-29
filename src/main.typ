@@ -3,8 +3,7 @@
 #set text(font: "Linux Biolinum O", size: 11pt)
 
 #show: ieee.with(
-  title: [Catching Bugs Before They Bite], // TODO: TBD
-  authors: (
+  title: [Catching Bugs Before They Bite], authors: (
     (
       name: "Tygo van den Hurk", department: [Computer Science and Engineering], organization: [Technical University Eindhoven], email: [#link(
           "mailto:t.j.f.h.v.d.hurk@student.tue.nl", "t.j.f.h.v.d.hurk@student.tue.nl",
