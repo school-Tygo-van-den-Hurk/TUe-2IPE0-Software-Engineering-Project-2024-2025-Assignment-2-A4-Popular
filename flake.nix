@@ -60,16 +60,10 @@
 
         commonArgs = {
           typstSource = "main.typ";
+          virtualPaths = [ ];
           fontPaths = [
             "${pkgs.roboto}/share/fonts/truetype"
             "${pkgs.libertine}/share/fonts/truetype/public"
-          ];
-          virtualPaths = [
-            {
-              # access these icons as `#image("font-awesome/heart.svg")` in typst.
-              dest = "font-awesome";
-              src = "${inputs.font-awesome}/svgs/regular";
-            }
           ];
         };
 

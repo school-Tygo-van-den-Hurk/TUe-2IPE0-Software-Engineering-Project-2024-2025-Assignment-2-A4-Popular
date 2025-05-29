@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="315" height="42" style="background-color:white">
+  <title>Test Dashboard</title>
+  <style>
+    .icon.passed { fill: #1a7f37; }
+    .icon.failed { fill: #cf222e; }
+    .icon.skipped { fill: #6e7781; }
+    .icon.neutral { fill: #6e7781; }
+    .icon.graphic { fill: #ffffff; }
+    .chart.passed { fill: #2da44e; }
+    .chart.failed { fill: #fa4549; }
+    .chart.skipped { fill: #6e7781; }
+    .chart.neutral { fill: #6e7781; }
+    .resultsMessage {
+      font-size: 16px;
+      font-weight: 600;
+      font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+    }
+    .resultsMessage.passed { fill: #24292f; }
+    .resultsMessage.failed { fill: #cf222e; }
+    .resultsMessage.neutral { fill: #24292f; }
+    .detailsMessage {
+      font-size: 13px;
+      font-weight: 400;
+      font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+      fill: #57606a;
+    }
+
+    @media (prefers-color-scheme:dark) {
+      .icon.passed { fill: #238636; }
+      .icon.failed { fill: #da3633; }
+      .icon.skipped { fill: #c9d1d9; }
+      .icon.neutral { fill: #c9d1d9; }
+      .icon.graphic { fill: #ffffff; }
+      .chart.passed { fill: #2ea043; }
+      .chart.failed { fill: #f85149; }
+      .chart.skipped { fill: #c9d1d9; }
+      .chart.neutral { fill: #c9d1d9; }
+      .resultsMessage.passed { fill: #c9d1d9; }
+      .resultsMessage.failed { fill: #f85149; }
+      .resultsMessage.neutral { fill: #c9d1d9; }
+      .detailsMessage { fill: #8b949e; }
+    }
+  </style>
+  <g transform="scale(1)">
+    <circle cx="15" cy="15" r="15" class="icon passed" />
+    <path transform="translate(7.5, 7.5)" fill-rule="evenodd" class="icon passed graphic" d="M 13.78 4.22 a 0.75 0.75 0 0 1 0 1.06 l -7.25 7.25 a 0.75 0.75 0 0 1 -1.06 0 L 2.22 9.28 a 0.75 0.75 0 0 1 1.06 -1.06 L 6 10.94 l 6.72 -6.72 a 0.75 0.75 0 0 1 1.06 0 z "/>
+  </g>
+  <text x="42" y="16" class="resultsMessage passed">All tests passed</text>
+  <text x="42" y="34.2" class="detailsMessage">68 tests passed</text>
+</svg>

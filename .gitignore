@@ -12,6 +12,3 @@
 
 # PDF documents produced from Typst
 **/*.pdf
-
-# Virtual paths
-**/font-awesome
