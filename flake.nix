@@ -26,6 +26,16 @@
         nixpkgs.follows = "nixpkgs";
       };
     };
+
+    typix = {
+      url = "github:loqusion/typix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    font-awesome = {
+      url = "github:FortAwesome/Font-Awesome";
+      flake = false;
+    };
   };
 
   outputs =
@@ -34,6 +44,7 @@
       nixpkgs,
       flake-utils,
       treefmt-nix,
+      typix,
       ...
     }:
     flake-utils.lib.eachDefaultSystem (
@@ -44,52 +55,65 @@
         treefmtEval = treefmt-nix.lib.evalModule pkgs ./.config/treefmt.nix;
         pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run (import ./.config/pre-commit.nix);
 
+        typixLib = typix.lib.${system};
+        src = ./src;
+
+        commonArgs = {
+          typstSource = "main.typ";
+          fontPaths = [
+            "${pkgs.roboto}/share/fonts/truetype"
+            "${pkgs.libertine}/share/fonts/truetype/public"
+          ];
+          virtualPaths = [
+            {
+              # access these icons as `#image("font-awesome/heart.svg")` in typst.
+              dest = "font-awesome";
+              src = "${inputs.font-awesome}/svgs/regular";
+            }
+          ];
+        };
+
+        unstable_typstPackages = [
+          {
+            name = "charged-ieee";
+            version = "0.1.3";
+            hash = "sha256-tfGeuggtRY74VBS4csaYrRF3mIhI2p+68YkJXLVdRNU=";
+          }
+        ];
+
+        build-drv = typixLib.buildTypstProject (commonArgs // { inherit src unstable_typstPackages; });
+        build-script = typixLib.buildTypstProjectLocal (
+          commonArgs // { inherit src unstable_typstPackages; }
+        );
+        watch-script = typixLib.watchTypstProject commonArgs;
+
       in
       rec {
+        # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Nix Run ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
+
+        apps = rec {
+          default = watch;
+          build = flake-utils.lib.mkApp { drv = build-script; };
+          watch = flake-utils.lib.mkApp { drv = watch-script; };
+        };
+
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Nix Develop ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 
-        devShells.default = pkgs.mkShell {
-          inherit (pre-commit-check) shellHook;
+        devShells.default = typixLib.devShell {
+          extraShellHook = pre-commit-check.shellHook;
           buildInputs =
             pre-commit-check.enabledPackages
             ++ (with pkgs; [
               act # Run / check GitHub Actions locally.
               git # Pull, commit, and push changes.
+              zathura # for live reloading of the PDF as you write it.
+              typst # compile the document
             ]);
         };
 
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Nix Build ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 
-        packages.default = pkgs.stdenv.mkDerivation rec {
-          name = "default";
-          src = ./.;
-          buildInputs = with pkgs; [ ];
-
-          buildPhase = ''
-            runHook preBuild
-
-            # ...
-
-            runHook postBuild
-          '';
-
-          checkPhase = ''
-            runHook preCheck
-
-            # ...
-
-            runHook postCheck
-          '';
-
-          installPhase = ''
-            runHook preInstall
-
-            mkdir --parents $out
-            # ...
-
-            runHook postInstall
-          '';
-        };
+        packages.default = build-drv;
 
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Nix Flake Check ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 
@@ -103,7 +127,6 @@
         formatter = treefmtEval.config.build.wrapper;
 
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
-
       }
     );
 }

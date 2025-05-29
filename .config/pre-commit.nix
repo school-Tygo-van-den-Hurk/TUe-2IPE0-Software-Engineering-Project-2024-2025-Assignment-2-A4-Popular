@@ -120,6 +120,7 @@
           "tygo"
           "Hurk"
           "hurk"
+          "typ"
         ];
       };
     };

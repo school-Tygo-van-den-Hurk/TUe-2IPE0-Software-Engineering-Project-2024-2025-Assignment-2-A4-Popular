@@ -10,4 +10,8 @@
 **/result
 **/result-*
 
-# Find common git ignore templates at: https://github.com/github/gitignore
+# PDF documents produced from Typst
+**/*.pdf
+
+# Virtual paths
+**/font-awesome
