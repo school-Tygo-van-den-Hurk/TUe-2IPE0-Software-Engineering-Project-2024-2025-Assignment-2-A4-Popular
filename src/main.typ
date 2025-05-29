@@ -57,8 +57,8 @@ unexpected bugs. The goal is to catch these problems before users ever see them.
 
 = The Solution
 
-If humans make mistakes all the time by accident, why don't we make the robots
-do it? This is where what I made for our group comes in. One of the
+If humans make mistakes all the time by accident, why don't we automate some
+sort of checking? This is where what I made for our group comes in. One of the
 contributions I made for my group is a CI/CD pipeline. What is that? Good
 question! A CI/CD pipeline is something that constantly checks what you build
 for breaking changes. Every time you make a change this program will run over
