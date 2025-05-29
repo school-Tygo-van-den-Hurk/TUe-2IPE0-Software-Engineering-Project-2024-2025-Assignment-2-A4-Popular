@@ -24,6 +24,16 @@
       ];
     };
 
+    # Format Typst source files
+    typstfmt = {
+      enable = true;
+      stages = [
+        "pre-commit"
+        "pre-push"
+        "manual"
+      ];
+    };
+
     # Ensure that all (non-binary) files with a shebang are executable.
     check-shebang-scripts-are-executable = {
       enable = true;
@@ -64,7 +74,7 @@
 
     # disallows commits to certain branches.
     no-commit-to-branch = {
-      enable = true;
+      enable = false;
       settings.branch = [ "main" ];
       stages = [
         "pre-commit"

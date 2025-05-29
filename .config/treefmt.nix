@@ -6,5 +6,6 @@ _: {
     statix.enable = true; # nix static analysis
     deadnix.enable = true; # find dead nix code
     mdformat.enable = true; # markdown formatting
+    typstfmt.enable = true; # Typst formatting
   };
 }
