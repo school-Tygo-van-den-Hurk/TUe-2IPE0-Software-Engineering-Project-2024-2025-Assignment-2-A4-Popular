@@ -17,7 +17,7 @@ jobs:
     if: github.actor == 'dependabot[bot]'
     steps:
       - uses: actions/checkout@v4.2.2
-      - uses: cachix/install-nix-action@v31.2.0
+      - uses: cachix/install-nix-action@v31
       - name: "Nix flake checks"
         run: nix flake check --show-trace --all-systems
       - name: Check if it's a patch update
