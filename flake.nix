@@ -1,5 +1,5 @@
 {
-  description = "The flake used for building, checking and developing this school project.";
+  description = "The second assignment for SEP is called A4-popular is about writing to a less informed audience";
 
   inputs = {
 
