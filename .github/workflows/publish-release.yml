@@ -35,7 +35,7 @@ jobs:
 
       - name: Upload Release Asset
         id: upload-release-asset
-        uses: softprops/action-gh-release@v2.2.2
+        uses: softprops/action-gh-release@v2.3.2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           fail_on_unmatched_files: true
