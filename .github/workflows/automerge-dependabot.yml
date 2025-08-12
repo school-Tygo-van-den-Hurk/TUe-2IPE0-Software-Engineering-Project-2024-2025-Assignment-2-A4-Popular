@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     if: github.actor == 'dependabot[bot]'
     steps:
-      - uses: actions/checkout@v4.2.2
+      - uses: actions/checkout@v5
       - uses: cachix/install-nix-action@v31
       - name: "Nix flake checks"
         run: nix flake check --show-trace --all-systems
